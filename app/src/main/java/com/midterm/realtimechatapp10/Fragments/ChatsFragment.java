@@ -1,16 +1,14 @@
 //package com.example.chatapp2.Fragments;
-package com.midterm.realtimechatapp.Fragments;
+package com.midterm.realtimechatapp10.Fragments;
 
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//import com.example.chatapp2.R;
+import androidx.fragment.app.Fragment;
+
 import com.midterm.realtimechatapp.R;
 
 public class ChatsFragment extends Fragment {
