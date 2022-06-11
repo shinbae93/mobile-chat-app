@@ -1,10 +1,4 @@
-package com.midterm.realtimechatapp10;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+package com.midterm.realtimechatapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +9,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+
+
 import com.bumptech.glide.Glide;
+//import com.example.chatapp2.Fragments.ChatsFragment;
+//import com.example.chatapp2.Fragments.UsersFragment;
+//import com.example.chatapp2.Model.User;
+
+import com.midterm.realtimechatapp.Fragments.ChatsFragment;
+import com.midterm.realtimechatapp.Fragments.UsersFragment;
+import com.midterm.realtimechatapp.Model.User;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,9 +34,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.midterm.realtimechatapp10.Fragments.ChatsFragment;
-import com.midterm.realtimechatapp10.Fragments.UsersFragment;
-import com.midterm.realtimechatapp10.Model.User;
 
 import java.util.ArrayList;
 
