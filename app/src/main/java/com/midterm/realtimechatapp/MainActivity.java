@@ -37,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -113,9 +114,8 @@ public class MainActivity extends AppCompatActivity {
 
             case  R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                // change this code beacuse your app will crash
-                startActivity(new Intent(MainActivity.this, StartActivity.class));
-                finish();
+                // change this code because your app will crash
+                startActivity(new Intent(MainActivity.this, StartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
         }
 
@@ -152,4 +152,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    // Check status
+    private void status(String status){
+        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("User").child(fuser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
+    }
+
 }

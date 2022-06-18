@@ -1,6 +1,6 @@
 //package com.example.chatapp2.Model;
 package com.midterm.realtimechatapp.Model;
-public class User {
+public class User{
     private String id;
     private String username;
     private String imageURL;
