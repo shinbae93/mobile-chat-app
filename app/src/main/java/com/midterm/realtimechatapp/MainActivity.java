@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 //import com.example.chatapp2.Model.User;
 
 import com.midterm.realtimechatapp.Fragments.ChatsFragment;
+import com.midterm.realtimechatapp.Fragments.ProfileFragment;
 import com.midterm.realtimechatapp.Fragments.UsersFragment;
 import com.midterm.realtimechatapp.Model.User;
 
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     //chia thanh 2 fragment
          viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
          viewPagerAdapter.addFragment(new UsersFragment(), "Users");
+        viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
 
          viewPager.setAdapter(viewPagerAdapter);
          tabLayout.setupWithViewPager(viewPager);

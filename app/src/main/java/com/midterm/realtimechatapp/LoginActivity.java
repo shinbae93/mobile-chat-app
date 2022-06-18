@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
                     Toast.makeText(LoginActivity.this, "All fileds are required", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LoginActivity.this, "failed", Toast.LENGTH_SHORT).show();
                     auth.signInWithEmailAndPassword(txt_email, txt_password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
