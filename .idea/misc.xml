@@ -21,6 +21,8 @@
         <entry key="..\:/Users/MSI FPT/AndroidStudioProjects/mobile-chat-app/app/src/main/res/layout/fragment_profile.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/MSI FPT/AndroidStudioProjects/mobile-chat-app/app/src/main/res/layout/fragment_users.xml" value="0.1" />
         <entry key="..\:/Users/MSI FPT/AndroidStudioProjects/mobile-chat-app/app/src/main/res/layout/user_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_chats.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/user_item.xml" value="0.5" />
       </map>
     </option>
   </component>
