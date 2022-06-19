@@ -134,16 +134,40 @@ public class MessageActivity extends AppCompatActivity {
 //        if(reference != null) {
 //            Toast.makeText(MessageActivity.this, "in", Toast.LENGTH_SHORT).show();
 //        }
+//        String userid=intent.getStringExtra("userid");
+//        final String userid = intent.getStringExtra("userid");
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
-        if (hashMap != null) {
-            Toast.makeText(MessageActivity.this, "notnull", Toast.LENGTH_SHORT).show();
-//        }
-            reference.child("Chats").push().setValue(hashMap);
 
-        }
+        reference.child("Chats").push().setValue(hashMap);
+
+        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("ChatList")
+                .child(fuser.getUid())
+                .child(userid);
+
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    chatRef.child("id").setValue(userid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        if (hashMap != null) {
+//            Toast.makeText(MessageActivity.this, "notnull", Toast.LENGTH_SHORT).show();
+////        }
+//            reference.child("Chats").push().setValue(hashMap);
+//
+//        }
+
     }
         private void readMesagges ( final String myid, final String userid, final String imageurl){
             mchat = new ArrayList<>();
