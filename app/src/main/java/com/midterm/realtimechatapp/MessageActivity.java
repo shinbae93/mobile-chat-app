@@ -143,7 +143,7 @@ public class MessageActivity extends AppCompatActivity {
 
         reference.child("Chats").push().setValue(hashMap);
 
-        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("ChatList")
+        DatabaseReference chatRef = FirebaseDatabase.getInstance("https://realtimechatapp-e6d03-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("ChatList")
                 .child(fuser.getUid())
                 .child(userid);
 
