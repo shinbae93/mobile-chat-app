@@ -195,5 +195,27 @@ public class MessageActivity extends AppCompatActivity {
                 }
             });
         }
+    // Check status
+    private void status(String status){
+        //FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance("https://realtimechatapp-e6d03-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(fuser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
+    }
 
 }

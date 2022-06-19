@@ -154,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
     }
     // Check status
     private void status(String status){
-        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("User").child(fuser.getUid());
+        //FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance("https://realtimechatapp-e6d03-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(firebaseUser.getUid());
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("status", status);
