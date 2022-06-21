@@ -64,7 +64,7 @@ public class ProfileFragment extends Fragment {
         image_profile = view.findViewById(R.id.profile_image);
         username = view.findViewById(R.id.username);
 
-        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        storageReference = FirebaseStorage.getInstance("gs://realtimechatapp-e6d03.appspot.com").getReference("uploads");
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance("https://realtimechatapp-e6d03-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(fuser.getUid());
@@ -96,6 +96,7 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+
     }
 
     private void openImage() {
@@ -103,6 +104,7 @@ public class ProfileFragment extends Fragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, IMAGE_REQUEST);
+
     }
 
     private String getFileExtension(Uri uri){
@@ -127,7 +129,6 @@ public class ProfileFragment extends Fragment {
                     if (!task.isSuccessful()){
                         throw  task.getException();
                     }
-
                     return  fileReference.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -160,6 +161,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -175,4 +177,5 @@ public class ProfileFragment extends Fragment {
             }
         }
     }
+
 }
