@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
-
 import com.bumptech.glide.Glide;
 //import com.example.chatapp2.Fragments.ChatsFragment;
 //import com.example.chatapp2.Fragments.UsersFragment;
@@ -25,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.midterm.realtimechatapp.Fragments.ChatsFragment;
 import com.midterm.realtimechatapp.Fragments.ProfileFragment;
 import com.midterm.realtimechatapp.Fragments.UsersFragment;
+import com.midterm.realtimechatapp.Model.Chat;
 import com.midterm.realtimechatapp.Model.User;
 
 import com.google.android.material.tabs.TabLayout;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String userid = firebaseUser.getUid();
         reference = FirebaseDatabase.getInstance("https://realtimechatapp-e6d03-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(firebaseUser.getUid());
-      //  reference = FirebaseDatabase.getInstance("https://chatapp2-95530-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(userid);
+        //  reference = FirebaseDatabase.getInstance("https://chatapp2-95530-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 User user = dataSnapshot.getValue(User.class);
                 username.setText(user.getUsername());
                 //set anh cho profile
-                if (user.getImageURL().equals("default")){
+                if (user.getImageURL().equals("default")) {
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 } else {
 
@@ -87,18 +87,43 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-         TabLayout tabLayout = findViewById(R.id.tab_layout);
-         ViewPager viewPager = findViewById(R.id.view_pager);
 
-         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-    //chia thanh 2 fragment
-         viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
-         viewPagerAdapter.addFragment(new UsersFragment(), "Users");
-        viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+        final TabLayout tabLayout = findViewById(R.id.tab_layout);
+        final ViewPager viewPager = findViewById(R.id.view_pager);
 
-         viewPager.setAdapter(viewPagerAdapter);
-         tabLayout.setupWithViewPager(viewPager);
+        reference = FirebaseDatabase.getInstance("https://realtimechatapp-e6d03-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+                int unread = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && !chat.isIsseen()){
+                        unread++;
+                    }
+                }
 
+                if (unread == 0){
+                    viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+                } else {
+                    viewPagerAdapter.addFragment(new ChatsFragment(), "("+unread+") Chats");
+                }
+
+                viewPagerAdapter.addFragment(new UsersFragment(), "Users");
+                viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+
+                viewPager.setAdapter(viewPagerAdapter);
+
+                tabLayout.setupWithViewPager(viewPager);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -110,9 +135,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) { // sign out trong option phia tren goc phai
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
-            case  R.id.logout:
+            case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 // change this code because your app will crash
                 startActivity(new Intent(MainActivity.this, StartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -121,11 +146,12 @@ public class MainActivity extends AppCompatActivity {
 
         return false;
     }
+
     class ViewPagerAdapter extends FragmentPagerAdapter { //tao fragmet set title va position
         private ArrayList<Fragment> fragments;
         private ArrayList<String> titles;
 
-        ViewPagerAdapter(FragmentManager fm){
+        ViewPagerAdapter(FragmentManager fm) {
             super(fm);
             this.fragments = new ArrayList<>();
             this.titles = new ArrayList<>();
@@ -140,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
         public int getCount() {
             return fragments.size();
         }
-        public void addFragment(Fragment fragment, String title){
+
+        public void addFragment(Fragment fragment, String title) {
             fragments.add(fragment);
             titles.add(title);
         }
@@ -152,8 +179,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     // Check status
-    private void status(String status){
+    private void status(String status) {
         //FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance("https://realtimechatapp-e6d03-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users").child(firebaseUser.getUid());
 
