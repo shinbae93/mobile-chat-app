@@ -2,7 +2,7 @@
 
 ## I. Giới thiệu:
 - Đây là ứng dụng Chat để làm báo cáo cuối kỳ môn Lập trình di động
-- Ứng dụng này sử dụng Firebase để làm database, authentication, cloud messaging (push notification)
+- Ứng dụng này được viết bằng Java sử dụng Firebase để làm database, authentication, cloud messaging (push notification)
 
 ## II. Các chức năng:
 ### Ứng dụng có một số chức năng sau:
